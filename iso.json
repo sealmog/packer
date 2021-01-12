@@ -1,0 +1,54 @@
+{
+  "builders": [
+    {
+      "type":                       "vsphere-iso",
+      "convert_to_template":        true,
+
+      "vcenter_server":             "{{user `vsphere_server`}}",
+      "username":                   "{{user `vsphere_username`}}",
+      "password":                   "{{user `vsphere_password`}}",
+      "insecure_connection":        "true",
+
+      "datacenter":                 "{{user `vsphere_datacenter`}}",
+      "cluster":                    "{{user `vsphere_cluster`}}",
+      "host":                       "{{user `vsphere_host`}}",
+      "datastore":                  "{{user `vsphere_datastore`}}",
+      "folder":                     "{{user `vsphere_folder`}}",
+      "resource_pool":              "{{user `vsphere_pool`}}",
+
+      "vm_name":                    "{{user `vm_name`}}",
+      "notes":                      "Build via Packer",
+      "guest_os_type":              "centos7_64Guest",
+
+      "boot_wait":                  "10s",
+      "boot_order":                 "disk,cdrom,floppy",
+
+      "ssh_username":               "{{user `vm_ssh_username`}}",
+      "ssh_password":               "{{user `vm_ssh_password`}}",
+
+      "CPUs":                       "{{user `vm_cpu_num`}}",
+      "RAM":                        "{{user `vm_mem_size`}}",
+      "RAM_reserve_all":            false,
+      "disk_controller_type":       "pvscsi",
+      "storage": [
+        {
+          "disk_size":              "{{user `vm_disk_size`}}",
+          "disk_thin_provisioned":  "true"
+        }
+      ],
+      "network_adapters":           [
+        {
+          "network":                "{{user `vsphere_network`}}",
+          "network_card":           "vmxnet3"
+
+        }
+      ],
+      "iso_paths":                  ["{{user `iso_url`}}"],
+      "floppy_files":               ["ks.cfg"],
+      "boot_command":               [
+                                    "<esc><wait>",
+                                    "linux ks=hd:fd0:/ks.cfg<enter>"
+      ]
+    }
+  ]
+}

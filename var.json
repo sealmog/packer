@@ -1,0 +1,23 @@
+{
+    "vsphere_server":               "{{env `PKR_VAR_vsphere_vcenter`}}",
+    "vsphere_username":             "{{env `PKR_VAR_vsphere_username`}}",
+    "vsphere_password":             "{{env `PKR_VAR_vsphere_password`}}",
+
+    "vm_ssh_username":              "{{env `PKR_VAR_vsphere_sshusername`}}",
+    "vm_ssh_password":              "{{env `PKR_VAR_vsphere_sshpassword`}}",
+
+    "vsphere_datacenter":           "s27dc",
+    "vsphere_cluster":              "cluster1",
+    "vsphere_host":                 "esxi1",
+    "vsphere_network":              "VM Network",
+    "vsphere_datastore":            "datastore1",
+    "vsphere_folder":               "folder1",
+    "vsphere_pool":                 "pool1",
+
+    "vm_name":                      "c7-template",
+    "vm_cpu_num":                   "1",
+    "vm_mem_size":                  "1024",
+    "vm_disk_size":                 "20480",
+
+    "iso_url":                      "[datastore1] iso/CentOS-7-x86_64-DVD-2009.iso"
+}

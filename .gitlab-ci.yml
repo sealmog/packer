@@ -1,0 +1,31 @@
+---
+variables:
+  GIT_STRATEGY: clone
+  CI_JOB_NAME: CI_COMMIT_MESSAGE
+
+stages:
+  - validate
+  - build
+
+before_script:
+  - curl -o ./packer.zip https://releases.hashicorp.com/packer/1.6.6/packer_1.6.6_linux_amd64.zip
+  - unzip packer.zip && rm ./*.zip
+  - ./packer version
+
+validate:
+  tags: [terraform]
+  stage: validate
+  only:
+    - master
+    - develop
+  script:
+    - ./packer validate -var-file=var.json iso.json
+
+build:
+  tags: [terraform]
+  stage: build
+  only: 
+    - master
+  script:
+    - ./packer build -var-file=var.json iso.json
+  when: manual
